@@ -15,13 +15,16 @@ from sklearn.naive_bayes import GaussianNB
 
 plankton = pd.read_csv("Plankton.csv", index_col=False)
 fish = pd.read_csv("Fish.csv", index_col=False)
+data = pd.read_csv("All data.csv", index_col=False)
 
+#Correlation Table can be found in all data and figures for easy access
+correlations = data.corr()
+
+#Transform the data into bins
 for column in plankton[1:]:
     #Used -1 to 0.001 to include just the 0 values since that is most of them
     plankton[column] = pd.cut(x=plankton[column], bins=[-1, 0.001, 99, 500, 2000,999999], 
                      labels=[1,2,3,4,5])
-
- 
 for column in fish[1:]:
     fish[column] = pd.cut(x=fish[column], bins=[-1, 20, 40, 50, 60, 80, 100, 120, 140, 160, 1000], 
                      labels=[1,2,3,4,5,6,7,8,9,10])
